@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ChatRoom.ChatRoom">
+
+    <!-- Toolbar -->
+    <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/main_color"
+            app:title="Chat Room"
+            app:titleTextColor="@color/white"
+            app:navigationIcon="@drawable/baseline_arrow_back_24"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- RecyclerView для отображения сообщений -->
+    <ListView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:id="@+id/listview_messages"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/messageInputLayout"
+            android:stackFromBottom="true"
+            tools:listitem="@layout/list_item_messages"
+            tools:ignore="NotSibling"
+            android:divider="@android:color/transparent"
+    />
+
+    <!-- Layout для ввода сообщения -->
+    <LinearLayout
+            android:id="@+id/messageInputLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- Поле ввода сообщения -->
+        <EditText
+                android:id="@+id/editTextMessage"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/edittext"
+                android:hint="Type Messgae"
+                android:paddingStart="10sp"
+                android:layout_marginBottom="20sp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginVertical="15dp"
+                android:padding="8dp" />
+
+        <!-- Кнопка отправки сообщения -->
+        <ImageView
+                android:id="@+id/buttonSendMessage"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/baseline_arrow_circle_right_24"
+                android:padding="8dp" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

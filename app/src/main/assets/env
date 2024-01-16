@@ -1,0 +1,3 @@
+USERS_LINK=http://192.168.56.1/test/api/ChatList/chatlist.php
+USER_REGISTER=http://192.168.56.1/test/api/ChatList/registerUser.php
+CHAT_ROOM=http://192.168.56.1/test/api/ChatList/chatroom.php

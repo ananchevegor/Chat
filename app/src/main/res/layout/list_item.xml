@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+
+
+
+    <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+        <ImageView
+                android:id="@+id/avatar"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:background="@drawable/circle_background"
+                android:src="@drawable/baseline_account_circle_24"
+                android:scaleType="centerCrop"
+                android:layout_marginBottom="4dp"/>
+
+        <TextView
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/name"
+                android:textSize="18sp"
+                android:layout_marginTop="7dp"
+                android:layout_toEndOf="@+id/avatar"
+                android:layout_marginLeft="10dp"
+                android:textStyle="bold"
+                android:layout_marginBottom="4dp"/>
+
+        <TextView
+                android:id="@+id/last_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/name"
+                android:layout_toEndOf="@+id/avatar"
+                android:text="@string/last_message"
+                android:layout_marginLeft="10dp"
+                android:textSize="14sp"
+                android:textColor="@android:color/darker_gray"
+                android:layout_marginTop="4dp"/>
+        <Space android:layout_width="match_parent" android:layout_height="1dp"
+        android:layout_marginHorizontal="10dp"/>
+    </RelativeLayout>
+
+
+</LinearLayout>
