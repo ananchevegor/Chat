@@ -13,6 +13,7 @@ import com.example.chat.ChatRoom.AdapterChatRoom.AdapterChatRoom
 import com.example.chat.Classes.ChatRoomClass
 import com.example.chat.Classes.UserChat
 import com.example.chat.R
+import com.example.chat.consts.constants
 import com.example.chat.databinding.ActivityChatRoomBinding
 import io.github.cdimascio.dotenv.dotenv
 import org.json.JSONArray
@@ -30,19 +31,57 @@ class ChatRoom : AppCompatActivity() {
 
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        messagesArrayList = ArrayList()
+        getMessages()
         binding.apply {
             toolbar.title = intent.getStringExtra("name")
-        }
-        messagesArrayList = ArrayList()
+            buttonSendMessage.setOnClickListener {
+                messagesArrayList.clear()
 
-        val dotenv = dotenv {
-            directory = "/assets"
-            filename = "env" // instead of '.env', use 'env'
+                val queue_insert = Volley.newRequestQueue(applicationContext)
+                val params_insert = HashMap<String, String>()
+                queue_insert.add(object : StringRequest(
+                    Method.POST, constants().dotenv["CHAT_ROOM_MESSAGE"],
+                    Response.Listener { response ->
+                    },
+                    Response.ErrorListener { error ->
+                        Log.i("error", error.toString())
+                    }
+                ){
+                    override fun getParams(): MutableMap<String, String>? {
+                        params_insert.put("user_id", "7")
+                        params_insert.put("companion_id", "3")
+                        params_insert.put("message", editTextMessage.text.toString())
+                        return params_insert
+                    }
+                })
+
+                getMessages()
+                editTextMessage.text.clear()
+            }
         }
+
+
+
+
+
+
+
+
+
+
+
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
+    private fun getMessages(){
         val queue = Volley.newRequestQueue(applicationContext)
         val params = HashMap<String, String>()
         val jsonRequest = object : StringRequest(
-            Method.POST, dotenv["CHAT_ROOM"],
+            Method.POST, constants().dotenv["CHAT_ROOM"],
             Response.Listener { response ->
                 Log.i("response", response.toString())
                 for(i in 0 until JSONArray(response).length()){
@@ -62,16 +101,8 @@ class ChatRoom : AppCompatActivity() {
             }
         }
         queue.add(jsonRequest)
-
-
         Handler(Looper.getMainLooper()).postDelayed({
             binding.listviewMessages.adapter = AdapterChatRoom(this, messagesArrayList)
         }, 500)
-
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
-        return true
     }
 }

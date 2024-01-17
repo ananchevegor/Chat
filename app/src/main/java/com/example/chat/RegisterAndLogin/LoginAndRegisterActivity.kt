@@ -32,17 +32,14 @@ class LoginAndRegisterActivity : AppCompatActivity() {
 
 
 
-            val dotenv = dotenv {
-                directory = "/assets"
-                filename = "env" // instead of '.env', use 'env'
-            }
+
 
             registerButton.setOnClickListener {
                 val fullPhone = spinner.selectedItem.toString()+editText.text.toString()
                 val queue = Volley.newRequestQueue(applicationContext)
                 val params = HashMap<String, String>()
                 val jsonRequest = object : StringRequest(
-                    Method.POST, dotenv["USER_REGISTER"],
+                    Method.POST, constants().dotenv["USER_REGISTER"],
                     Response.Listener { response ->
                         if (response == "true") {
 

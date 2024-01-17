@@ -1,5 +1,7 @@
 package com.example.chat.consts
 
+import io.github.cdimascio.dotenv.dotenv
+
 class constants {
 
     val countryCodeArray = arrayOf(
@@ -10,5 +12,10 @@ class constants {
         "+354",
         "+39"
     )
+
+    val dotenv = dotenv {
+        directory = "/assets"
+        filename = "env" // instead of '.env', use 'env'
+    }
 
 }

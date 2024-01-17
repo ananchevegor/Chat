@@ -18,6 +18,7 @@ import com.android.volley.toolbox.Volley
 import com.example.chat.AdapterUsers.AdapterUsers
 import com.example.chat.ChatRoom.ChatRoom
 import com.example.chat.Classes.UserChat
+import com.example.chat.consts.constants
 import com.example.chat.databinding.ActivityMainBinding
 import io.github.cdimascio.dotenv.dotenv
 
@@ -41,16 +42,13 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        val dotenv = dotenv {
-            directory = "/assets"
-            filename = "env" // instead of '.env', use 'env'
-        }
+
 
 
         userArrayList = java.util.ArrayList()
         val queue = Volley.newRequestQueue(applicationContext)
         val params = HashMap<String, String>()
-        val jsonRequest = object : StringRequest(Method.POST, dotenv["USERS_LINK"],
+        val jsonRequest = object : StringRequest(Method.POST, constants().dotenv["USERS_LINK"],
             Response.Listener { response ->
                 for(i in 0 until JSONArray(response).length()){
                     val user = UserChat(JSONArray(response).getJSONObject(i))
