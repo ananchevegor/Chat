@@ -1,6 +1,7 @@
 package com.example.chat.ChatRoom.AdapterChatRoom
 
 import android.app.Activity
+import android.content.SharedPreferences
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +14,7 @@ import com.example.chat.Classes.UserChat
 import com.example.chat.R
 import androidx.constraintlayout.widget.ConstraintLayout.LayoutParams
 
-class AdapterChatRoom(private val context: Activity, private val arrayList: ArrayList<ChatRoomClass>) : ArrayAdapter<ChatRoomClass>(context,
+class AdapterChatRoom(private val context: Activity, private val arrayList: ArrayList<ChatRoomClass>, private val sharedPreferences: SharedPreferences) : ArrayAdapter<ChatRoomClass>(context,
 R.layout.list_item, arrayList){
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
 
@@ -24,7 +25,7 @@ R.layout.list_item, arrayList){
         val message : TextView = view.findViewById(R.id.messageUsers)
         val layoutParams = message.layoutParams as LinearLayout.LayoutParams
 
-        if (arrayList[position].userMessage.getString("user_id") == "7") {
+        if (arrayList[position].userMessage.getString("user_id") == sharedPreferences.getString("currentUser", "7")) {
             layoutParams.gravity = Gravity.END
         }else{
             layoutParams.gravity = Gravity.START

@@ -1,5 +1,7 @@
 package com.example.chat
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -34,14 +36,15 @@ class MainActivity : AppCompatActivity() {
     private lateinit var toogle: ActionBarDrawerToggle
 
 
+    @SuppressLint("WrongConstant", "CommitPrefEdits")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
-
+        val sharedPreferences = getSharedPreferences("currentUser", MODE_APPEND)
+       sharedPreferences.edit().putString("currentUser", "7").apply()
 
 
 
@@ -61,7 +64,7 @@ class MainActivity : AppCompatActivity() {
             }
         ){
             override fun getParams(): MutableMap<String, String>? {
-                params.put("user_id", "7")
+                params.put("user_id", sharedPreferences.getString("currentUser", "").toString())
                 return params
             }
         }
@@ -73,9 +76,9 @@ class MainActivity : AppCompatActivity() {
 
         binding.listviewUsers.setOnItemClickListener { parent, view, position, id ->
             //Log.i("namen", userArrayList[position].json.getJSONObject(position.toString()).getString("name"))
-            val name = userArrayList[position].json.getString("name")
+            val name = userArrayList[position].json
             val i = Intent(this, ChatRoom::class.java)
-            i.putExtra("name", name)
+            i.putExtra("companionUser", name.toString())
             startActivity(i)
         }
 
