@@ -12,12 +12,15 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.chat.AdapterUsers.AdapterUsers
 import com.example.chat.ChatRoom.AdapterChatRoom.AdapterChatRoom
+import com.example.chat.ChatRoom.WebsocketRoom.Websocket
 import com.example.chat.Classes.ChatRoomClass
 import com.example.chat.Classes.UserChat
 import com.example.chat.R
 import com.example.chat.consts.constants
 import com.example.chat.databinding.ActivityChatRoomBinding
 import io.github.cdimascio.dotenv.dotenv
+import okhttp3.OkHttpClient
+import okhttp3.Request
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -68,22 +71,19 @@ class ChatRoom : AppCompatActivity() {
                 editTextMessage.text.clear()
             }
         }
-
-
-
-
-
-
-
-
-
-
-
+        getMessagesWebsocket(sharedPreferences)
     }
 
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
+    }
+    private fun getMessagesWebsocket(sharedPreferences: SharedPreferences){
+        val client = OkHttpClient()
+        val request = Request.Builder().url(constants().dotenv["WEBSOCKET_CHAT_ROOM"]).build()
+        val listener = Websocket(binding,this@ChatRoom, messagesArrayList, sharedPreferences)
+        client.newWebSocket(request, listener)
+        client.dispatcher.executorService.shutdown()
     }
     private fun getMessages(sharedPreferences: SharedPreferences, companion: JSONObject){
         val queue = Volley.newRequestQueue(applicationContext)
